@@ -1,9 +1,4 @@
-"""
-This mdoule contains data quality check operations
 
-Author: Fabio Barbazza
-Date: Nov, 2022
-"""
 from airflow.hooks.postgres_hook import PostgresHook
 from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults

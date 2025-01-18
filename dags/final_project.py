@@ -1,11 +1,5 @@
 
 
-"""
-This mdoule contains the DAG responsible for running the ETL of Sparkify
-
-Author: Fabio Barbazza
-Date: Nov, 2022
-"""
 from datetime import datetime, timedelta
 from airflow.decorators import task_group
 from airflow import DAG
@@ -31,12 +25,10 @@ logger = logging.getLogger(__name__)
 default_args = {
     'owner': 'udacity',
     'depends_on_past': False,
-    'start_date': datetime(2019, 1, 12),
+    'start_date': datetime(2025, 1, 18),
     'email_on_failure': True,
-    # retry 3 times after failure
     'retries': 3,
     'email_on_retry': False,
-    # retry after 5 minutes
     'retry_delay': timedelta(minutes=5),
     'catchup': False
 }
@@ -56,12 +48,12 @@ with DAG('udac_example_dag',
         redshift_conn_id = "redshift",
         aws_credentials_id="aws_credentials",
         table="staging_events",
-        s3_bucket = 'udacity-dend',
+        s3_bucket = 'tpride',
         #s3_key = 'log_data/{execution.year}/{execution.month}',
         s3_key = 'log_json_path.json',
         #s3_json = 'auto',
         s3_json = 's3://udacity-dend/log_json_path.json',
-        region= 'us-west-2'
+        region= 'us-east-1'
     )
 
     stage_songs_to_redshift = StageToRedshiftOperator(
@@ -70,10 +62,10 @@ with DAG('udac_example_dag',
         redshift_conn_id = "redshift",
         aws_credentials_id="aws_credentials",
         table="staging_songs",
-        s3_bucket="udacity-dend",
+        s3_bucket="tpride",
         s3_key="song_data",
         s3_json = 'auto',
-        region= 'us-west-2'
+        region= 'us-east-1'
     )
 
     # create fact table from staging tables
