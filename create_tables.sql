@@ -7,7 +7,7 @@ CREATE TABLE public.artists (
 );
 
 CREATE TABLE public.songplays (
-    songplay_id bigint IDENTITY(0,1) PRIMARY KEY,
+  songplay_id bigint IDENTITY(0,1) PRIMARY KEY,
 	playid varchar(32) NOT NULL,
 	start_time timestamp NOT NULL,
 	userid int4 NOT NULL,
